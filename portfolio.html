@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portofolio JasaCodingIT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Gaya dan palet sama dengan index.html. Daftar project ada di array PROJECTS di bawah. */
+:root {
+  --ink: #0b0d1a;
+  --paper: #f7f8ff;
+  --navy-a: #10163a;
+  --navy-b: #172055;
+  --green: #3dff95;
+  --lemon: #ffe629;
+  --tomato: #ff5a3c;
+  --sky: #5cc8ff;
+  --pink: #ff8fd8;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--navy-a);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: max(28px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-left)) max(32px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-right));
+}
+.bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(-45deg, var(--navy-a) 0 28px, var(--navy-b) 28px 56px);
+  background-size: 79.2px 79.2px;
+  animation: stripes 2.6s linear infinite;
+}
+@keyframes stripes { to { background-position: 79.2px 0; } }
+
+main { position: relative; z-index: 1; width: 100%; max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+.card { background: var(--paper); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--green); border-radius: 8px; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.back {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px;
+  background: var(--lemon); color: var(--ink); text-decoration: none;
+  font: 700 13px var(--font-mono); border: 3px solid var(--ink); border-radius: 6px; box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.back:hover, .back:focus-visible { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.back:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.back:focus-visible, .visit:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.back svg { width: 16px; height: 16px; }
+.count { font: 700 12px var(--font-mono); color: var(--ink); background: var(--green); border: 2px solid var(--ink); border-radius: 4px; padding: 4px 10px; }
+
+.head { overflow: hidden; transform: rotate(-.6deg); }
+.bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; background: var(--ink); color: #9aa3d8; font: 700 12px var(--font-mono); }
+.bar i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--paper); }
+.bar i:nth-child(1) { background: var(--tomato); }
+.bar i:nth-child(2) { background: var(--lemon); }
+.bar i:nth-child(3) { background: var(--green); }
+.bar span { margin-left: 6px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.head .body { padding: 18px 20px 20px; }
+h1 { font: 800 clamp(26px, 6vw, 38px)/1.05 var(--font-display); margin: 0 0 6px; text-wrap: balance; }
+.lead { margin: 0; font: 400 14px/1.5 var(--font-mono); max-width: 52ch; }
+.lead::before { content: "$ "; color: var(--tomato); font-weight: 700; }
+
+.grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 22px; }
+.project { display: flex; flex-direction: column; overflow: hidden; height: 100%; transition: transform .12s ease, box-shadow .12s ease; }
+.project:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--green); }
+.shot { aspect-ratio: 16 / 10; border-bottom: 3px solid var(--ink); background: var(--navy-b); overflow: hidden; position: relative; }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* gambar pengganti kalau project belum punya screenshot */
+.ph { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.ph .tb { display: flex; gap: 5px; padding: 8px 10px; background: var(--ink); }
+.ph .tb i { width: 8px; height: 8px; border-radius: 50%; background: var(--paper); opacity: .7; }
+.ph .canvas { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+.ph .canvas b { display: block; height: 10px; border-radius: 3px; background: var(--ink); opacity: .85; }
+.ph .canvas b:nth-child(1) { width: 62%; height: 16px; }
+.ph .canvas b:nth-child(2) { width: 88%; opacity: .45; }
+.ph .canvas b:nth-child(3) { width: 74%; opacity: .45; }
+.ph .canvas em { margin-top: 4px; width: 38%; height: 20px; border-radius: 4px; border: 2px solid var(--ink); background: var(--paper); }
+.info { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.project h2 { font: 800 19px/1.2 var(--font-display); margin: 0; overflow-wrap: anywhere; }
+.project p { margin: 0; font-size: 14px; line-height: 1.55; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.tag { font: 700 11px var(--font-mono); padding: 2px 8px; border: 2px solid var(--ink); border-radius: 4px; background: var(--paper); }
+.visit {
+  align-self: flex-start; margin-top: 4px; padding: 6px 12px; color: var(--ink); text-decoration: none;
+  font: 700 12px var(--font-mono); background: var(--green); border: 2px solid var(--ink); border-radius: 4px; box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.visit:hover, .visit:focus-visible { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+
+footer { align-self: center; padding: 4px 12px; background: var(--green); color: var(--ink); border: 2px solid var(--ink); border-radius: 4px; font: 700 12px var(--font-mono); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg { animation: none; }
+  .project, .back, .visit { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<main>
+  <div class="top">
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      Kembali
+    </a>
+    <span class="count" id="count"></span>
+  </div>
+
+  <header class="head card">
+    <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>nauracode &mdash; ls portfolio/</span></div>
+    <div class="body">
+      <h1>Portofolio</h1>
+      <p class="lead">Beberapa project web, mobile, API, dan database yang pernah dikerjakan.</p>
+    </div>
+  </header>
+
+  <ul class="grid" id="grid"></ul>
+  <footer>built by JasaCodingIT &copy; 2026</footer>
+</main>
+
+<script>
+/* Ganti isi daftar ini dengan project aslimu.
+   image : path gambar, misalnya "images/toko.jpg" (taruh file di folder images/). Kosongkan untuk gambar pengganti.
+   url   : link demo atau detail project (boleh dikosongkan, tombol "Lihat" otomatis hilang).
+   color : warna gambar pengganti. */
+var PROJECTS = [
+  {
+    title: "Website Company Profile",
+    desc: "Situs profil perusahaan yang cepat dan rapi di HP, lengkap dengan halaman layanan dan formulir kontak.",
+    tags: ["Web", "HTML/CSS", "JavaScript"],
+    image: "", url: "", color: "#5cc8ff"
+  },
+  {
+    title: "Aplikasi Kasir Mobile",
+    desc: "Aplikasi kasir untuk UMKM: catat penjualan, kelola stok, dan lihat laporan harian dari ponsel.",
+    tags: ["Mobile", "Flutter", "SQLite"],
+    image: "", url: "", color: "#ff8fd8"
+  },
+  {
+    title: "REST API Toko Online",
+    desc: "API untuk produk, keranjang, dan pesanan dengan autentikasi token dan dokumentasi endpoint.",
+    tags: ["API", "Node.js", "JWT"],
+    image: "", url: "", color: "#ffe629"
+  },
+  {
+    title: "Dashboard Data Inventori",
+    desc: "Rancangan database dan dashboard untuk memantau barang masuk, keluar, dan sisa stok gudang.",
+    tags: ["Database", "MySQL", "Dashboard"],
+    image: "", url: "", color: "#3dff95"
+  }
+];
+
+var grid = document.getElementById("grid");
+document.getElementById("count").textContent = PROJECTS.length + " project";
+
+PROJECTS.forEach(function (p) {
+  var li = document.createElement("li");
+  var art = document.createElement("article");
+  art.className = "project card";
+
+  var shot = document.createElement("div");
+  shot.className = "shot";
+
+  function placeholder() {
+    shot.innerHTML = '';
+    shot.style.background = p.color || "#5cc8ff";
+    var ph = document.createElement("div");
+    ph.className = "ph";
+    ph.innerHTML = '<div class="tb"><i></i><i></i><i></i></div><div class="canvas"><b></b><b></b><b></b><em></em></div>';
+    shot.appendChild(ph);
+  }
+
+  if (p.image) {
+    var img = document.createElement("img");
+    img.src = p.image;
+    img.alt = "Tampilan " + p.title;
+    img.loading = "lazy";
+    img.onerror = placeholder;
+    shot.appendChild(img);
+  } else {
+    placeholder();
+  }
+
+  var info = document.createElement("div");
+  info.className = "info";
+  var h = document.createElement("h2");
+  h.textContent = p.title;
+  var d = document.createElement("p");
+  d.textContent = p.desc;
+  info.appendChild(h);
+  info.appendChild(d);
+
+  if (p.url) {
+    var a = document.createElement("a");
+    a.className = "visit";
+    a.href = p.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.textContent = "Lihat project →";
+    info.appendChild(a);
+  }
+
+  var tags = document.createElement("div");
+  tags.className = "tags";
+  (p.tags || []).forEach(function (t) {
+    var s = document.createElement("span");
+    s.className = "tag";
+    s.textContent = t;
+    tags.appendChild(s);
+  });
+  info.appendChild(tags);
+
+  art.appendChild(shot);
+  art.appendChild(info);
+  li.appendChild(art);
+  grid.appendChild(li);
+});
+</script>
+</body>
+</html>
